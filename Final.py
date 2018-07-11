@@ -6,36 +6,40 @@ def falsowc(nombre_archivo):
 #identifica la cantidad de palabras del archivo
 #identifica los bytes del archivo
 
+    def contarLineas(param):
+        with open(param + '.txt', 'r') as mensaje:
+            lineas = len(mensaje.readlines())
+            return lineas  
+
+    def contarPalabras(param):
+        with open(param + '.txt', 'r') as mensaje:
+            lineas = len(mensaje.read().split())
+            return lineas  
+
+    def contarBytes(param):
+        with open(param + '.txt', 'r') as mensaje:
+            lineas = os.stat(nombre_archivo + '.txt')
+            return lineas.st_size  
+
 
     try:    #prueba que la variable x exista 
         archivo_ingresado = open(nombre_archivo + '.txt')
+
+        lineas = contarLineas(nombre_archivo)
+        lineas1 = contarPalabras(nombre_archivo)
+        lineas2 = contarBytes(nombre_archivo)
+        
+
+        print('resumen de', nombre_archivo,':')
+        print('cantidad de lineas:', lineas)
+        print('cantidad de palabras:', lineas1)
+
+        print('cantidad de bytes:', lineas2)
         
     except: #en caso de que no existe el archivo ejecuta el print (todavia NO FUNCA)
-        print('El archivo ingresado no existe', nombre_archivo,'Por favor ingrese otro: ')
+        print('El archivo', nombre_archivo,'no existe, por favor ingrese otro: ')
        
-
-    with open(nombre_archivo + '.txt', 'r') as mensaje:
-        
-        print('resumen de', nombre_archivo,':')
-
-        lineas = len(mensaje.readlines())
-
-        mensaje.seek(0)
-
-        contador = len(mensaje.read().split())
-
-        mensaje.seek(0)
-
-        aux = os.stat(nombre_archivo + '.txt')
-
-        cuenta_bytes = aux.st_size
-
-
-        print('cantidad de lineas:', lineas)
     
-        print('cantidad de palabras:', contador)
-
-        print('cantidad de bytes:', cuenta_bytes)
        
 def llamado():
     x = input('ingrese el nombre del archivo que desee abrir: ')
